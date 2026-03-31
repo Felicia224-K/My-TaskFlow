@@ -1,10 +1,19 @@
-require('dotenv').config();
 const express = require('express');
+const {connectDB, sequelize}   = require('./config/database');
+require('dotenv').config();
 
 
 const app = express();
 
+
+
 app.use(express.json());
+
+connectDB();
+
+sequelize.sync({ alter: true })
+    .then(() => console.log('Database synchronized'))
+    .catch((err) => console.error( err));
 
 app.get('/', (req, res) => {
     res.send('This is the API for the project');
