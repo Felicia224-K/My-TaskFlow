@@ -2,6 +2,9 @@ const { User} = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+
+
+
 exports.register = async (req, res) => {
     try{
     const { username, email, password } = req.body;
@@ -53,3 +56,47 @@ exports.login = async (req, res) => {
     }
 };
 
+
+exports.me = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.user.id, {
+            attributes: { exclude: ['password'] }
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
+};
+
+
+exports.updateProfile = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        const user = await User.findByPk(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        if (username) user.username = username;
+
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            user.password = hashedPassword;
+        }
+
+        await user.save();
+
+        res.json({ message: 'Profile updated successfully', user: { id: user.id, username: user.username, email: user.email } });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
+};
+
+
+exports.logout = (req, res) => {
+    res.json({ message: 'Logged out successfully' });
+};
