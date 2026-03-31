@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Fel1_224K_6erbl4n",
+    "database": "taskflow_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
