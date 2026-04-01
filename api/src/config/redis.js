@@ -6,11 +6,11 @@ const redis = new Redis({
     password: process.env.REDIS_PASSWORD || null,
     
     retryStrategy: times => {
-        if (times > 3) {
+        if (times > 5) {
             console.error('Redis connection failed after 3 attempts');
             return null; // Stop retrying after 3 attempts
         }
-        return times * 1000; // Wait 1s, 2s, 3s before retrying
+        return times * 429; // Wait 1s, 2s, 3s before retrying
     },
     lazyConnect: true,
     

@@ -15,6 +15,9 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/tasks', taskRoutes);
 
 connectDB();
 
@@ -32,6 +35,17 @@ app.get('/', (req, res) => {
 app.get('/test', (req, res) => {
     res.json({ message: 'OK' });
 });
+
+
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'OK',
+        message: 'API is healthy',
+        uptime: process.uptime(),
+        timestamp: Date.now()
+     });
+});
+
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
