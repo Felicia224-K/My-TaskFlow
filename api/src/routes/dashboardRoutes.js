@@ -17,9 +17,30 @@ const authenticate = require('../middlewares/authenticate');
  *   get:
  *     summary: Get the current user's dashboard
  *     tags: [Dashboard]
+ *     security: 
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Dashboard data retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalProjects:
+ *                   type: number
+ *                   example: 5
+ *                 totalTasks:
+ *                   type: number
+ *                   example: 20
+ *                 completedTasks:
+ *                   type: number
+ *                   example: 10
+ *                 pendingTasks:
+ *                   type: number
+ *                   example: 10
  */
 router.get('/', authenticate, dashboard.getDashboard);
 

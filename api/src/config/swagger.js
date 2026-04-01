@@ -18,6 +18,22 @@ const swaggerOptions = {
     },
 
     apis: [ './src/routes/*.js', './src/models/*.js' ], // Path to the API docs
+
+    components: {
+        securitySchemes: {
+            bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT'
+            }
+        }
+    },
+
+    security: [
+        {bearerAuth: [] }
+    ],
+
+    apis: [ './src/routes/*.js', './src/models/*.js' ],
 };
 
 
