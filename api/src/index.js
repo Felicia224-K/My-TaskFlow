@@ -22,11 +22,28 @@ sequelize.sync({ alter: true })
     .then(() => console.log('Database synchronized'))
     .catch((err) => console.error( err));
 
+
+
 app.get('/', (req, res) => {
     res.send('This is the API for the project');
 });
 
-const port =  4000;
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on http://localhost:${port}`);
+
+app.get('/test', (req, res) => {
+    res.json({ message: 'OK' });
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
+// Catch erreurs async non gérées
+process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Rejection:', err);
+});
+
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
 });

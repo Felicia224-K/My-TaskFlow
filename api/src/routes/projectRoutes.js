@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/projectController');
+const task = require('../controllers/taskController');
+
 
 router.post('/', projectController.create);
 router.get('/', projectController.getAll);
 router.get('/search', projectController.search);
+router.get('/:id/tasks', projectController.getProjectTasks);
 router.get('/:id', projectController.getOne);
 router.put('/:id', projectController.update);
 router.get('/:id', projectController.getById);

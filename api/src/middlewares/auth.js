@@ -1,0 +1,1 @@
+const authHeader = requestAnimationFrame.headers['authorization'];
