@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/projectController');
+const authenticate = require('../middlewares/authenticate');
 const task = require('../controllers/taskController');
 
 /**
@@ -21,7 +22,7 @@ const task = require('../controllers/taskController');
  *         description: Project created successfully
 
  */
-router.post('/', projectController.create);
+router.post('/', authenticate, projectController.create);
 
 
 /**
@@ -34,7 +35,7 @@ router.post('/', projectController.create);
  *       200:
  *         description: Projects retrieved successfully
  */
-router.get('/', projectController.getAll);
+router.get('/', authenticate,projectController.getAll);
 
 
 /**
@@ -47,72 +48,7 @@ router.get('/', projectController.getAll);
  *       200:
  *         description: Projects retrieved successfully
  */
-router.get('/search', projectController.search);
-
-/**
- * @swagger
- * /api/projects/{id}:
- *   get:
- *     summary: Get a project by ID
- *     tags: [Projects]
- *     responses:
- *       200:
- *         description: Project retrieved successfully
-
- */
-router.get('/:id/tasks', projectController.getProjectTasks);
-
-
-/**
- * @swagger
- * /api/projects/{id}:
- *   get:
- *     summary: Get a project by ID
- *     tags: [Projects]
- *     responses:
- *       200:
- *         description: Project retrieved successfully
- */
-router.get('/:id', projectController.getOne);
-
-
-/**
- * @swagger
- * /api/projects/{id}:
- *   put:
- *     summary: Update a project
- *     tags: [Projects]
- *     responses:
- *       200:
- *         description: Project updated successfully
- */
-router.put('/:id', projectController.update);
-
-
-
-/**
- * @swagger
- * /api/projects/{id}:
- *   get:
- *     summary: Get a project by ID
- *     tags: [Projects]
- *     responses:
- *       200:
- *         description: Project retrieved successfully
- */
-router.get('/:id', projectController.getById);
-
-/**
- * @swagger
- * /api/projects/{id}:
- *   delete:
- *     summary: Delete a project
- *     tags: [Projects]
- *     responses:
- *       200:
- *         description: Project deleted successfully
- */
-router.delete('/:id', projectController .deleteProject);
+router.get('/search', authenticate, projectController.search);
 
 
 
@@ -126,7 +62,124 @@ router.delete('/:id', projectController .deleteProject);
  *       200:
  *         description: Projects filtered successfully
  */
-router.get('/filter-by-date', projectController.filterByDate);
+router.get('/filter-by-date',  authenticate, projectController.filterByDate);
+
+
+
+/**
+ * @swagger
+ * /api/projects/{id}:
+ *   get:
+ *     summary: Get a project by ID
+ *     tags: [Projects]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Project retrieved successfully
+
+ */
+router.get('/:id', authenticate, projectController.getOne);
+
+
+
+
+
+
+
+
+/**
+ * @swagger
+ * /api/projects/{id}:
+ *   put:
+ *     summary: Update a project
+ *     tags: [Projects]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Project retrieved successfully
+ */
+router.put('/:id', authenticate, projectController.update);
+
+
+
+
+/**
+ * @swagger
+ * /api/projects/{id}:
+ *   delete:
+ *     summary: Delete a project
+ *     tags: [Projects]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Project deleted successfully
+ */
+router.delete('/:id', authenticate, projectController .deleteProject);
+
+
+
+/**
+ * @swagger
+ * /api/projects/{id}/tasks:
+ *   get:
+ *     summary: Get all tasks for a project
+ *     tags: [Projects]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Tasks retrieved successfully
+ */
+router.get('/:id/tasks', authenticate, projectController.getProjectTasks);
+
+
+
+/**
+ * @swagger
+ * /api/projects/{id}/tasks:
+ *   post:
+ *     summary: Create a new task for a project
+ *     tags: [Projects]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       201:
+ *         description: Task created successfully
+ */
+router.post('/:id/tasks', authenticate, task.create);
+
+
+
+
+
 
 
 module.exports = router;

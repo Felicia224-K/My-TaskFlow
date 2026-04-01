@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const healthRoutes = require('./routes/healthRoutes');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/health', require('./routes/healthRoutes'));
 
 
 setupSwagger(app);
@@ -44,14 +46,7 @@ app.get('/test', (req, res) => {
 });
 
 
-app.get('/api/health', (req, res) => {
-    res.status(200).json({ 
-        status: 'OK',
-        message: 'API is healthy',
-        uptime: process.uptime(),
-        timestamp: Date.now()
-     });
-});
+
 
 
 const PORT = process.env.PORT || 4000;

@@ -51,7 +51,7 @@ router.get('/me', authController.me);
 /**
  * @swagger
  * /api/auth/profile:
- *   post:
+ *   put:
  *     summary: Update the current user's profile
  *     tags: [Authentication]
  *     responses:
@@ -59,7 +59,7 @@ router.get('/me', authController.me);
  *         description: User profile updated successfully
 
  */
-router.post('/profile', authController.updateProfile);
+router.put('/profile', authController.updateProfile);
 
 /**
  * @swagger

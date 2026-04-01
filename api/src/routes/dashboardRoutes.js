@@ -6,6 +6,13 @@ const authenticate = require('../middlewares/authenticate');
 
 /**
  * @swagger
+ * tags:
+ *   name: Dashboard
+ *   description: User dashboard with project and task summaries
+ */
+
+/**
+ * @swagger
  * /api/dashboard:
  *   get:
  *     summary: Get the current user's dashboard
