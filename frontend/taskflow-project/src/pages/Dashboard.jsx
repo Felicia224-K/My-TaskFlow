@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
+import {useNavigate} from 'react-router-dom';
+
+
+
 
 
 function Dashboard() {
+    
+    const navigate = useNavigate();
 
     const [projects, setProjects] = useState([]);
     const [stats, setStats] = useState(null);
@@ -41,7 +47,7 @@ function Dashboard() {
             <h3>Projects</h3>
             {projects.map(p => (
                 <div key={p.id}>
-                    <h4> { p.name} </h4>
+                    <h4 onClick={() => navigate(`/projects/${p.id}`)}> { p.name} </h4>
                 </div>
             ))}
 

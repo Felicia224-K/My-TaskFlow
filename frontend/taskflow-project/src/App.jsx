@@ -3,6 +3,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import AuthGuard from './components/AuthGuard';
 import Dashboard from './pages/dashboard';
+import ProjectDetail from './pages/ProjectDetail';
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
                 <Route path='/' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/dashboard' element={<AuthGuard> <Dashboard /> </AuthGuard>} />
+                <Route path='/projects/"id' element={<AuthGuard> <ProjectDetail /> </AuthGuard>} />
             </Routes>
         </BrowserRouter>
     );
