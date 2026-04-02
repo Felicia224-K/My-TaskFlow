@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const setupSwagger = require('./config/swagger');
 const { sequelize, connectDB} = require('./config/database');
 const authRoutes = require('./routes/authRoutes');
@@ -9,13 +10,15 @@ const healthRoutes = require('./routes/healthRoutes');
 
 const app = express();
 
-
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
-app.use('/api/projects', projectRoutes);
-app.use('/api/tasks', taskRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);

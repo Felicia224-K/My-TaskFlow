@@ -11,7 +11,7 @@ function Register() {
         e.preventDefault();
         try {
             await api.post('/auth/register', {
-                name,
+                username: name,
                 email,
                 password,
             });
@@ -48,7 +48,7 @@ function Register() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
 
-                        <button type='submit'></button>
+                        <button type='submit'>Register</button>
                     </form>
                 </div>
             );
