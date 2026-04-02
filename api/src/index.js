@@ -26,8 +26,6 @@ app.use('/api/health', require('./routes/healthRoutes'));
 setupSwagger(app);
 
 
-
-
 connectDB();
 
 sequelize.sync({ alter: true })
@@ -41,11 +39,10 @@ app.get('/', (req, res) => {
 });
 
 
+
 app.get('/test', (req, res) => {
     res.json({ message: 'OK' });
 });
-
-
 
 
 
