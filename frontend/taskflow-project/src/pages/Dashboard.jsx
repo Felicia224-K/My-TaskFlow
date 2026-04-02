@@ -13,19 +13,17 @@ function Dashboard() {
 
     useEffect(() => {
         api.get('/projects')
-            .then(res => setProjects(res.data))
+            .then(res => {
+                console.log('My projects:', res.data)
+            setProjects(res.data);
+            })
             .catch(err => console.log(err));
 
         api.get('/dashboard')
-            .then(res => setStats(res.data.data))
+            .then(res => setStats(res.data))
             .catch(err => console.log(err));
     }, []);
 
-    useEffect(() => {
-        api.get('/projects')
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err));
-    }, []);
 
     return (
         <div>
@@ -34,7 +32,7 @@ function Dashboard() {
             {/*Stats*/}
             {stats && (
                 <div>
-                    <p>Total Projects: {stats.totalProjects}</p>
+                    <p>Total Projects: {projects.length}</p>
                     <p>Total Tasks: {stats.totalTasks} </p>
                     <p>Completed Tasks: {stats.completedTasks} </p>
                 </div>
@@ -44,7 +42,7 @@ function Dashboard() {
             <h3>Projects</h3>
             {projects.map(p => (
                 <div key={p.id}>
-                    <h4 onClick={() => navigate(`/projects/${p.id}`)}> { p.name} </h4>
+                    <h4 onClick={() => navigate(`/projects/${p.id}`)}> { p.title} </h4>
                 </div>
             ))}
 

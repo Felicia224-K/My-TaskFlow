@@ -12,7 +12,8 @@ function App() {
                 <Route path='/' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/dashboard' element={<AuthGuard> <Dashboard /> </AuthGuard>} />
-                <Route path='/projects/"id' element={<AuthGuard> <ProjectDetail /> </AuthGuard>} />
+                <Route path='/project' element={<AuthGuard> <ProjectDetail /></AuthGuard>} /> 
+                <Route path='/projects/:id' element={<AuthGuard> <ProjectDetail /> </AuthGuard>} />
             </Routes>
         </BrowserRouter>
     );
