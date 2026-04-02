@@ -28,7 +28,7 @@ const task = require('../controllers/taskController');
  *             required:
  *              - name
  *             properties:
- *               name:
+ *               title:
  *                 type: string
  *               description:
  *                 type: string

@@ -16,13 +16,22 @@ exports.getDashboard = async (req, res) => {
        const totalProjects = await Project.count({
             where: { userId: req.user.id } 
         });
+        
+
+        const userProjects = await Project.findAll({
+            where: { userId: req.user.id },
+            attributes: ['id']
+        });
+
+        const projectIds = userProjects.map(p => p.id);
+
        const totalTasks = await Task.count({ 
-            where: { userId: req.user.id } 
+            where: { projectId: projectIds } 
         });
 
         const completedTasks = await Task.count({
             where: { 
-                userId: req.user.id,
+                projectId: projectIds,
                 status: 'completed'
             } 
         });

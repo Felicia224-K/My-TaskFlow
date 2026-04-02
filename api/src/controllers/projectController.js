@@ -4,8 +4,19 @@ const redis = require('../config/redis');
 
 // create a project
 const create = async (req, res) => {
-    const project = await Project.create(req.body);
-    res.status(201).json(project);
+    try {
+        const project = await Project.create({
+            ...req.body,
+            userId: req.user.id
+    });
+
+    await redis.del(`projects:${req.user.id}`);
+        res.status(201).json(project);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    
+    }
+    
 };
 
 

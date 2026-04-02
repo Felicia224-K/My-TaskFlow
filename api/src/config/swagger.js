@@ -15,9 +15,8 @@ const swaggerOptions = {
                 url: 'http://localhost:4000', description: 'Local server'
             }
         ],
-    },
+    
 
-    apis: [ './src/routes/*.js', './src/models/*.js' ], // Path to the API docs
 
     components: {
         securitySchemes: {
@@ -33,9 +32,11 @@ const swaggerOptions = {
         {bearerAuth: [] }
     ],
 
-    apis: [ './src/routes/*.js', './src/models/*.js' ],
-};
+},
 
+   apis: [ './src/routes/*.js', './src/models/*.js' ], // Path to the API docs
+
+};
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
