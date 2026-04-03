@@ -1,11 +1,13 @@
 import { Navigate } from 'react-router-dom';
+import { useAuth } from  '../context/AuthContext';
 
 function AuthGuard({children}) {
-    const token = localStorage.getItem('token');
+    const { token, loading } = useAuth();
 
-    if (!token) {
-        return <Navigate to='/' />
-    }
+
+    if (loading) return  <p>Loading...</p>;
+
+    if (!token) { return <Navigate to='/' /> };
 
     return children;
 

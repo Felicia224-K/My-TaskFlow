@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { useNavigate} from 'react-router-dom';
 import api from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -12,12 +16,12 @@ function Login() {
                 email,
                 password,
             });
+            login(res.data.token);
+            navigate('/dashboard');
 
-            localStorage.setItem('token', res.data.token);
-            alert ('Login successful');
         } catch (err) {
             console.error(err);
-            alert('Error login');
+            alert('Incorrect email or password ');
         }
     };
 

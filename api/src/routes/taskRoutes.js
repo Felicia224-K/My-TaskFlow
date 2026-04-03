@@ -288,7 +288,7 @@ router.patch('/:id', authenticate,
  */
 router.patch('/:id/status', authenticate,
     [
-        body('status').isIn(['pending', 'in_progress', 'completed']).withMessage('Invalide status value'),
+        body('status').isIn(['pending', 'in_progress', 'completed']).withMessage('Invalid status value'),
         
     ],
     validate,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import {useNavigate} from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 
 function Dashboard() {
@@ -9,6 +10,7 @@ function Dashboard() {
 
     const [projects, setProjects] = useState([]);
     const [stats, setStats] = useState(null);
+    const { user, logout } = useAuth();
 
 
     useEffect(() => {
@@ -20,7 +22,7 @@ function Dashboard() {
             .catch(err => console.log(err));
 
         api.get('/dashboard')
-            .then(res => setStats(res.data))
+            .then(res => setStats(res.data.data))
             .catch(err => console.log(err));
     }, []);
 
@@ -28,7 +30,12 @@ function Dashboard() {
     return (
         <div>
             <h2>Dashboard</h2>
+            {user && <p>Welcome, {user.username } </p>}
+            <button onClick= {() => { logout(); navigate('/'); }}>
+                Logout
+            </button>
 
+    
             {/*Stats*/}
             {stats && (
                 <div>
@@ -47,7 +54,7 @@ function Dashboard() {
             ))}
 
        </div> 
-    );
+    )
 }
 
 export default Dashboard;
