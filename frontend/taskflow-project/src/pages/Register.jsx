@@ -18,7 +18,7 @@ function Register() {
 
             alert('Account created');
         } catch (err) {
-            console.error(err);
+            console.error('Register error:', err.message);
             alert('Registration error');
         }
     };

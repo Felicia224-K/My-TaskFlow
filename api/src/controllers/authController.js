@@ -59,8 +59,6 @@ exports.login = async (req, res) => {
 
 exports.me = async (req, res) => {
     try {
-        console.log('req.user:', req.user); //trying something
-
 
         const user = await User.findByPk(req.user.id, {
             attributes: { exclude: ['password'] }
@@ -72,7 +70,6 @@ exports.me = async (req, res) => {
         res.json(user);
     } catch (err) {
 
-        console.error('me error:', err); // trying something
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 };
